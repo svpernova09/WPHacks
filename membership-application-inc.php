@@ -1,7 +1,7 @@
 <?php
-//ini_set ('display_errors', 1);
-//error_reporting (E_ALL & ~E_NOTICE);
-require_once ('/www/dev.midsouthmakers.org/config.php'); // make sure config.php is in same folder or change to path to config.php
+ini_set ('display_errors', 1);
+error_reporting (E_ALL & ~E_NOTICE);
+require_once ('/www/midsouthmakers.org/config.php'); // make sure config.php is in same folder or change to path to config.php
 mysql_connect("$dbhost","$dbuser","$dbpass") or die ("Unable to connect to the database");
 @mysql_select_db("mm_members") or die ("Unable To Select Database");
 //$query = "SELECT * FROM current_projects WHERE 1 ORDER BY Project ASC";
@@ -23,8 +23,15 @@ if (!$resp->is_valid) {
     $action = "add";	
   }
 */  
- } 
+ }
+if(empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])){
+	$action = "bot";
+}
 switch($action){
+case "bot":
+    //echo Bot
+    echo("I think you're a bot<BR>");
+break;
 case "add":
 //echo("Action = add <BR>");
 //print_r($_POST);
@@ -132,7 +139,7 @@ $mail = wp_mail($to, $subject, $message);
             
         } else {
             echo '<div style="color: red">' . $errors . '<br/></div>';
-			echo("<form id=\"membershipapplication\" name=\"membershipapplication\" method=\"post\" action=\"http://www.midsouthmakers.org/membership-application/?action=add\">
+			echo("<form id=\"membershipapplication\" name=\"membershipapplication\" method=\"post\" action=\"https://www.midsouthmakers.org/membership-application/?action=add\">
   <table width=\"500\" border=\"0\" cellpadding=\"2\">
     <tr>
       <th scope=\"row\">First Name</th>
@@ -211,7 +218,7 @@ break;
 case "edit":
 break;
 default:
-	echo("<form id=\"membershipapplication\" name=\"membershipapplication\" method=\"post\" action=\"http://www.midsouthmakers.org/membership-application/?action=add\">
+	echo("<form id=\"membershipapplication\" name=\"membershipapplication\" method=\"post\" action=\"https://www.midsouthmakers.org/membership-application/?action=add\">
   <table width=\"500\" border=\"0\" cellpadding=\"2\">
     <tr>
       <th scope=\"row\">First Name</th>
